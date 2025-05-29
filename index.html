@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
     <head>
-
+        <title>오늘뭐먹지</title>
+        <link rel="stylesheet" href="index.css">
+        <script src="source.js"></script>
     </head>
     <body>
-        <h1>하이여</h1>
-        
+        <header>
+            <h1 id="main_title">점메추.</h1>
+            <script>
+                const hour = new Date().getHours();
+                const title = document.getElementById("main_title");
+                if     (hour >= 22) title.innerText = "야식추.";
+                else if(hour >= 17) title.innerText = "저메추.";
+                else if(hour >= 11) title.innerText = "점메추.";
+                else if(hour >=  6) title.innerText = "아메추.";
+                else                title.innerText = "뭐하냐?";
+            </script>
+        </header>
+        <form action="" id="menuSearch">
+            <button class="button_pill">추천</button>
+            <select id="methodSelect">
+                <option>맛집 찾기</option>
+                <option>직접 요리</option>
+            </select>
+            <input type="text" id="menuInput" placeholder="메뉴 입력 혹은 랜덤 선택">
+            <button class="button_pill">검색</button>
+        </form>
     </body>
 </html>

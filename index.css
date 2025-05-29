@@ -1,0 +1,76 @@
+#main_title{
+    /* 중앙 고정 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -150%);
+
+    /* 치수 */
+    margin: 0;
+
+    /* 내부 요소 */
+    font-size: clamp(2rem, 5vw + 1rem, 8rem);
+}
+
+#menuSearch{
+    /* 내부 요소 정렬 */
+    display: grid;
+    grid-template-columns: min-content min-content 1fr min-content;
+    justify-content: center;
+    align-items: center;
+
+    /* 중앙 고정 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+#menuInput{
+    /* 치수 */
+    height: 40px;
+    width: 50vw;
+    padding: 0px 15px;
+    margin-right: -20px;
+    font-size: 1rem;
+
+    /* 모양 조정 */
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 2px 1px 2px;
+    border-radius: 0px;
+    background-color: #fff;
+}
+
+.button_pill{
+    /* 치수 */
+    height: 44px;
+    width: 80px;
+
+    /* 모양 조정 */
+    border: 2px solid #000;
+    border-radius: 9999px;
+    background-color: #000;
+
+    /* 글자 */
+    color: white;
+    font-size: 15px;
+
+    z-index: 1;
+}
+
+#methodSelect{
+    /* 치수 */
+    height: 44px;
+    width: 100px;
+    padding-left: 25px;
+    margin-left: -20px;
+
+    /* 모양 조정 */
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 2px 1px 2px;
+    border-radius: 0px;
+
+    z-index: -1;
+}
