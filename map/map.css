@@ -1,0 +1,39 @@
+body{ margin: 0; }
+
+#leftSearchBar{ /* 장소 검색 결과가 나타나는 부분 */
+    display: inline-block;
+    position: fixed;
+    width: 400px;
+    height: 100vh;
+
+    background-color: #ccc;
+}
+
+#mapContainer{ /* 지도가 나타나는 부분 */
+    position: relative;
+
+    /* 치수 */
+    margin: 0 0 0 400px;
+    width: 100vw - 400px;
+    height: 100vh;
+}
+
+#refreshMapSearch{
+    /* 위치 설정 */
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    
+
+    z-index: 1;
+}
+
+#map{
+    /* 치수 */
+    width: 100%;
+    height: 100%;
+
+    z-index: 0;
+}
