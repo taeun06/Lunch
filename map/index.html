@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
     <head>
-        <script src="map.js"></script>
-        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c8da31fc7096de25d4fa3583b1c98ccf"></script>
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c8da31fc7096de25d4fa3583b1c98ccf&libraries=services"></script>
         <link rel="stylesheet" href="map.css">
+        <script src="map.js"></script>
     </head>
     <body>
-        <section id="leftSearchBar">
-
+        <section id="sideBar">
+            <h1>검색결과</h1>
+            <input type="text" id="searchBar">
         </section>
         <figure id="mapContainer">
             <div id="map"></div>

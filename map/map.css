@@ -1,20 +1,46 @@
 body{ margin: 0; }
 
-#leftSearchBar{ /* 장소 검색 결과가 나타나는 부분 */
+#sideBar,
+#sideBar * {
+  box-sizing: border-box;
+}
+
+#sideBar{ /* 장소 검색 결과가 나타나는 부분 */
     display: inline-block;
     position: fixed;
+    
+    margin: 10px;
+    padding: 25px;
     width: 400px;
-    height: 100vh;
+    height: calc(100vh - 35px);
+    
+    background-color: #fff;
+    border-width: 0px;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    
+    z-index: 1;
+}
 
-    background-color: #ccc;
+#sideBar h1{
+    margin-top: 0px;
+}
+
+#sideBar input{
+    border: 1px solid black;
+    border-radius: 9999px;
+
+    padding: 10px;
+    margin: 0;
+    width: 100%;
 }
 
 #mapContainer{ /* 지도가 나타나는 부분 */
     position: relative;
-
+    
     /* 치수 */
-    margin: 0 0 0 400px;
-    width: 100vw - 400px;
+    margin: 0;
+    width: calc(100vw);
     height: 100vh;
 }
 
@@ -25,7 +51,14 @@ body{ margin: 0; }
     left: 50%;
     transform: translateX(-50%);
 
-    
+    /* 치수 */
+    width: fit-content;
+    padding: 5px 10px;
+
+    background-color: #fff;
+    border-width: 0px;
+    border-radius: 9999px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
     z-index: 1;
 }

@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('menuSearch');
     const input = document.getElementById('menuInput');
     const select = document.getElementById('methodSelect');
 
     form.addEventListener('submit', function (e) {
-        e.preventDefault(); // 기본 제출 동작 방지
+        e.preventDefault();
 
         const query = input.value.trim();
         const method = select.value;
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (method === "맛집 찾기") {
             window.location.href = `map/index.html?query=${encodeURIComponent(query)}`;
-        } else {
+        }else if(method === "직접 요리"){
             window.location.href = `recipe/index.html?query=${encodeURIComponent(query)}`;
         }
     });
