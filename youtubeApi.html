@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>요리 레시피 유튜브 검색기</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    input {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    iframe {
+      margin: 10px 0;
+    }
+    .video-container {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>레시피 검색기</h1>
+  <input type="text" id="searchInput" placeholder="메뉴명을 입력하세요.">
+  <button onclick="searchRecipe()">검색</button>
+
+  <div id="results"></div>
+
+  <script>
+    const API_KEY = 'AIzaSyApB7oLkNUwcAwTOsNEvca_SSYwpy09BeM';
+
+    function searchRecipe() {
+      const query = document.getElementById('searchInput').value + ' 레시피';
+      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+
+      fetch(searchUrl)
+        .then(res => res.json())
+        .then(data => {
+          const videoIds = data.items.map(item => item.id.videoId).join(',');
+          const detailUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,status&id=${videoIds}&key=${API_KEY}`;
+
+          return fetch(detailUrl);
+        })
+        .then(res => res.json())
+        .then(detailData => {
+          const resultDiv = document.getElementById('results');
+          resultDiv.innerHTML = '';
+
+          let shownCount = 0;
+          detailData.items.forEach(video => {
+            if (!video.status.embeddable || shownCount >= 5) return; // 5개만 보여줌
+
+            const videoId = video.id;
+            const title = video.snippet.title;
+
+            const container = document.createElement('div');
+            container.className = 'video-container';
+
+            const p = document.createElement('p');
+            p.textContent = title;
+
+            const iframe = document.createElement('iframe');
+            iframe.width = "560";
+            iframe.height = "315";
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+
+            container.appendChild(iframe);
+            resultDiv.appendChild(container);
+            container.appendChild(p);
+
+
+            shownCount++;
+          });
+
+          if (shownCount === 0) {
+            resultDiv.innerHTML = '<p>재생 가능한 영상이 없습니다.</p>';
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert('error');
+        });
+    }
+  </script>
+
+</body>
+</html>
