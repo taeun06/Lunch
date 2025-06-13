@@ -1,9 +1,8 @@
-let map
-let places = [];
-let markers = [];
-let keyword = "";
-
 document.addEventListener("DOMContentLoaded", async function() {
+    let places = [];
+    let markers = [];
+    let keyword = "";
+
     //쿼리 문자열 받아오기
     if(window.location.search){
         const params = new URLSearchParams(window.location.search);
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         center: new kakao.maps.LatLng(lat, lng),
         level: 4
     };
-    map = new kakao.maps.Map(container, options);
+    const map = new kakao.maps.Map(container, options);
 
     //시작했을 때 쿼리를 읽어서 검색하기
     const kakaoPlaces = new kakao.maps.services.Places(map);
@@ -41,7 +40,104 @@ document.addEventListener("DOMContentLoaded", async function() {
         showResult,
         { useMapBounds: true }
     );
+
+    const reloadBtn = document.getElementById("refreshSearchBtn");
+    reloadBtn.addEventListener("click", function (){
+        kakaoPlaces.keywordSearch(
+        keyword,
+        showResult,
+        { useMapBounds: true }
+    );
+    })
+
+    const hideBtn = document.getElementById("hideSidebarBtn");
+    const showBtn = document.getElementById("showSidebarBtn");
+    const sideBar = document.getElementById("sideBar");
+
+    hideBtn.addEventListener("click", () => {
+        sideBar.style.display = "none";
+        showBtn.style.display = "block";
+    });
+
+    showBtn.addEventListener("click", () => {
+        sideBar.style.display = "flex";
+        showBtn.style.display = "none";
+    });
+
+    //콜백 함수 : 검색한 장소들을 지도에 표시하고 장소 객체들을 저장
+    function showResult(data, status){
+        if (status === kakao.maps.services.Status.OK) {
+            places = data;
+
+            markers.forEach(m => m.setMap(null));
+            markers = [];
+
+            data.forEach(place => {
+                const position = new kakao.maps.LatLng(place.y, place.x);
+
+                const marker = new kakao.maps.Marker({
+                    map:map,
+                    position:position,
+                    title: place.place_name
+                });
+                markers.push(marker);
+            });
+            
+            renderPlaces(places);
+
+        }else if(status === kakao.maps.services.Status.ZERO_RESULT){
+            alert(`"${keyword}"에 대한 검색 결과가 없습니다.`);
+        }else if(status === kakao.maps.services.Status.ERROR){
+            alert("검색 중 오류가 발생했습니다.");
+        }
+    }
+
+    function renderPlaces(places) {
+        const tpl = document.getElementById("result-tpl");
+        const container = document.getElementById("resultDisplay");
+        
+        container.innerHTML = "";
+        
+        places.forEach(place => {
+            const clone = tpl.content.cloneNode(true);
+            const item = clone.querySelector(".place-item");
+            
+            item.querySelector(".place-name").innerText = place.place_name;
+            item.querySelector(".place-address").innerText = place.address_name;
+    
+            item.addEventListener("click", e => {
+                showPlaceDetails(place);
+            });
+    
+            container.appendChild(item);
+        });
+    }
+    
+    function showPlaceDetails(place){
+        const pos = new kakao.maps.LatLng(place.y, place.x);
+        map.setLevel(1, { animate: false });
+        map.setCenter(pos);
+
+        const container = document.getElementById("resultDisplay");
+        container.innerHTML = "";
+    
+        const iframe = document.createElement("iframe");
+        iframe.classList.add("placeDetail");
+        iframe.width = 500;
+        iframe.height = 550;
+        iframe.src = place.place_url;
+    
+        const backBtn = document.createElement("button");
+        backBtn.classList.add("backToResultBtn");
+        backBtn.innerText = "목록으로";
+        backBtn.onclick = e => { renderPlaces(places); };
+        
+        container.appendChild(backBtn);
+        container.appendChild(iframe);
+    }
+
 });
+
 
 function getLatLng() {
     return new Promise((resolve, reject) => {
@@ -59,29 +155,4 @@ function getLatLng() {
             { enableHighAccuracy: true, timeout: 5000 }
         );
     });
-}
-
-//콜백 함수 : 검색한 장소들을 지도에 표시하고 장소 객체들을 저장
-function showResult(data, status){
-    if (status === kakao.maps.services.Status.OK) {
-        places = data;
-
-        markers.forEach(m => m.setMap(null));
-        markers = [];
-
-        data.forEach(place => {
-            const position = new kakao.maps.LatLng(place.y, place.x);
-
-            const marker = new kakao.maps.Marker({
-                map:map,
-                position:position,
-                title: place.place_name
-            });
-            markers.push(marker);
-        });
-    }else if(status === kakao.maps.services.Status.ZERO_RESULT){
-        alert(`"${keyword}"에 대한 검색 결과가 없습니다.`);
-    }else if(status === kakao.maps.services.Status.ERROR){
-        alert("검색 중 오류가 발생했습니다.");
-    }
 }
