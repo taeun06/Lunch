@@ -11,6 +11,7 @@
 
         if (query === "") {
             alert("검색어를 입력해주세요.");
+            input.focus();
             return;
         }
 

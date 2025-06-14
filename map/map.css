@@ -110,6 +110,9 @@ body{ margin: 0; }
 }
 
 .placeDetail{
+    height: calc(100% - 50px);
+    width: 500px;
+
     border: none;
 }
 

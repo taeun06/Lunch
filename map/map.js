@@ -123,9 +123,15 @@ document.addEventListener("DOMContentLoaded", async function() {
     
         const iframe = document.createElement("iframe");
         iframe.classList.add("placeDetail");
-        iframe.width = 500;
-        iframe.height = 550;
-        iframe.src = place.place_url;
+        const allowedPrefix = "https://place.map.kakao.com/";
+        const url = place.place_url.replace(/^http:\/\//, "https://");
+        if (url && url.startsWith(allowedPrefix)) {
+            iframe.src = url;
+        } else {
+            iframe.src = "about:blank";
+            alert("허용되지 않은 URL입니다.");
+        }
+        iframe.sandbox = "allow-scripts allow-same-origin";
     
         const backBtn = document.createElement("button");
         backBtn.classList.add("backToResultBtn");
@@ -135,6 +141,17 @@ document.addEventListener("DOMContentLoaded", async function() {
         container.appendChild(backBtn);
         container.appendChild(iframe);
     }
+
+    document.getElementById("searchBar").addEventListener("keydown", function(e){
+        if(e.key === "Enter"){
+            keyword = this.value.trim();
+            kakaoPlaces.keywordSearch(
+                keyword,
+                showResult,
+                { useMapBounds: true }
+            );
+        }
+    });
 
 });
 
