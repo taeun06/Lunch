@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
     <head>
         <title>오늘뭐먹지</title>
@@ -11,11 +11,11 @@
             <script>
                 const hour = new Date().getHours();
                 const title = document.getElementById("main_title");
-                if     (hour >= 22) title.innerText = "야메추.";
+                if     (hour >= 22 || hour < 2) title.innerText = "야메추.";
                 else if(hour >= 17) title.innerText = "저메추.";
                 else if(hour >= 11) title.innerText = "점메추.";
                 else if(hour >=  6) title.innerText = "아메추.";
-                else                title.innerText = "뭐하냐?";
+                else                title.innerText = "Zzz...";
             </script>
         </header>
         <form action="" id="menuSearch">
@@ -25,7 +25,7 @@
                 <option>직접 요리</option>
             </select>
             <input type="text" id="menuInput" placeholder="메뉴 입력 혹은 랜덤 선택">
-            <button class="button_pill">검색</button>
+            <button type="submit" class="button_pill">검색</button>
         </form>
     </body>
 </html>

@@ -1,0 +1,153 @@
+body{ margin: 0; }
+
+#sideBar,
+#sideBar * {
+  box-sizing: border-box;
+}
+
+#sideBar{ /* 장소 검색 결과가 나타나는 부분 */
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    
+    margin: 10px;
+    padding: 25px;
+    width: 500px;
+    height: calc(100vh - 35px);
+    
+    background-color: #fff;
+    border-width: 0px;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    
+    z-index: 1;
+}
+
+#hideSidebarBtn {
+    position:absolute;
+    top:15px;
+    right:15px;
+
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    cursor: pointer;
+    
+    background-color: #eee;
+    border: none;
+    border-radius: 50%;
+
+    z-index: 2;
+}
+
+#showSidebarBtn {
+    display:none;
+    position:absolute;
+    top:20px;
+    left:20px;
+    
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    cursor: pointer;
+
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+    z-index: 2;
+}
+
+#sideBar h1{
+    margin-top: 0px;
+}
+
+#sideBar input{
+    border: 1px solid black;
+    border-radius: 9999px;
+
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+}
+
+#resultDisplay{
+    flex: 1;
+    position: relative;
+    width: calc(100% + 50px);
+    margin: 25px -25px 0px -25px;
+
+    overflow-y: auto;
+}
+
+.backToResultBtn {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+
+    width: fit-content;
+    height: 32px;
+    padding: 6px 10px;
+    font-size: 13px;
+    line-height: 16px;
+    cursor: pointer;
+    
+    background-color: #eee;
+    border: none;
+    border-radius: 16px;
+
+    z-index: 2;
+}
+
+.place-item{
+    margin: 5px 15px;
+    padding: 10px;
+    cursor: pointer;
+
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.placeDetail{
+    height: calc(100% - 50px);
+    width: 500px;
+
+    border: none;
+}
+
+#mapContainer{ /* 지도가 나타나는 부분 */
+    position: relative;
+    
+    /* 치수 */
+    margin: 0;
+    width: calc(100vw);
+    height: 100vh;
+}
+
+#refreshSearchBtn{
+    /* 위치 설정 */
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* 치수 */
+    width: fit-content;
+    padding: 5px 10px;
+
+    background-color: #fff;
+    border-width: 0px;
+    border-radius: 9999px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+    z-index: 1;
+}
+
+#map{
+    /* 치수 */
+    width: 100%;
+    height: 100%;
+
+    z-index: 0;
+}

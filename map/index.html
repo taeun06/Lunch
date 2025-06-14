@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>오늘뭐먹지-맛집검색</title>
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c8da31fc7096de25d4fa3583b1c98ccf&libraries=services"></script>
+        <link rel="stylesheet" href="map.css">
+        <script src="map.js"></script>
+    </head>
+    <body>
+        <aside id="sideBar">
+            <button id="hideSidebarBtn">⮜</button>
+            <h1>검색결과</h1>
+            <input type="text" id="searchBar">
+            <div id="resultDisplay">
+            </div>
+        </aside>
+        <figure id="mapContainer">
+            <div id="map"></div>
+            <button id="refreshSearchBtn">이 위치에서 다시 검색</button>
+            <button id="showSidebarBtn" style="display:none; position:absolute; top:20px; left:20px; z-index:2;">⮞</button>
+        </figure>
+        <template id="result-tpl">
+            <div class="place-item">
+                <h4 class="place-name"></h4>
+                <p class="place-address"></p>
+            </div>
+        </template>
+    </body>
+</html>
